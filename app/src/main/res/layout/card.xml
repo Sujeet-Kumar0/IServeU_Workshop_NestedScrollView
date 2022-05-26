@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:background="#88C34A"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvAnime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor=" @color/black "
+        android:textSize="20sp"
+        tools:text="Hello Title" />
+
+    <TextView
+        android:id ="@+id/tvCharacter"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:textSize = "14sp"
+        tools:text = "Hello Body" />
+
+    <TextView
+        android:id ="@+id/tvQuote"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:textSize = "11sp"
+        tools:text = "Hello Body" />
+
+</LinearLayout>
