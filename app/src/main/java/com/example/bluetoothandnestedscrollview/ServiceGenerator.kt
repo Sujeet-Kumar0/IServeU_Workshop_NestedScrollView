@@ -10,7 +10,7 @@ object ServiceGenerator {
     private val Client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://animechan.vercel.app/api/")
+        .baseUrl("https://animechan.vercel.app/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(Client)
         .build()

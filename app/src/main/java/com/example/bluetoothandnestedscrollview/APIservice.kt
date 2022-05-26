@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface APIservice {
 
-    @GET("quotes")
+    @GET("api/quotes")
     fun getPosts(): Call<MutableList<PostModel>>
 
 }

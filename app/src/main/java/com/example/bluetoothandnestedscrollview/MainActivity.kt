@@ -1,20 +1,21 @@
 package com.example.bluetoothandnestedscrollview
 
 import android.Manifest
-import android.bluetooth.*
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.recyclerview.widget.LinearLayoutManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -119,28 +120,30 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        button.setOnClickListener {
-            call.enqueue(object : Callback<MutableList<PostModel>> {
-                override fun onResponse(
-                    call: Call<MutableList<PostModel>>,
-                    response: Response<MutableList<PostModel>>
-                ) {
-                    if (response.isSuccessful)
-                        Log.e("Success", response.body().toString())
 
-//            RecyclerView.apply{
-//                    layoutManager = LinearLayoutManager(this@MainActivity)
-//                    adapter = ViewHolder(response.body()!!)
+        call.enqueue(object : Callback<MutableList<PostModel>> {
+            override fun onResponse(
+                call: Call<MutableList<PostModel>>,
+                response: Response<MutableList<PostModel>>
+            ) {
+                if (response.isSuccessful)
+                    Log.e("Success", response.body().toString())
+
+                RecyclerView.apply {
+                    layoutManager = LinearLayoutManager(this@MainActivity)
+                    adapter = ViewHolder(response.body()!!)
 
                 }
+            }
 
-                override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
-                    t.printStackTrace()
-                    Log.e("error", t.message.toString())
-                }
-            })
-        }
+            override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("error", t.message.toString())
+            }
+        })
+
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
