@@ -82,6 +82,20 @@ class MainActivity : AppCompatActivity() {
             if (mBlueAdapter != null) {
                 if (!mBlueAdapter.isDiscovering) {
                     showToast("Making Your Device Discoverable")
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH_CONNECT
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return@OnClickListener
+                    }
                     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE)
                     startActivityForResult(intent, REQUEST_DISCOVER_BT)
                 }
@@ -91,6 +105,20 @@ class MainActivity : AppCompatActivity() {
         offBtn.setOnClickListener(View.OnClickListener {
             if (mBlueAdapter != null) {
                 if (mBlueAdapter.isEnabled) {
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH_CONNECT
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return@OnClickListener
+                    }
                     mBlueAdapter.disable()
                     showToast("Turning Bluetooth Off")
                     bluetoothIv.setImageResource(R.drawable.ic_action_off)
@@ -103,6 +131,20 @@ class MainActivity : AppCompatActivity() {
         pairedBtn.setOnClickListener(View.OnClickListener {
             if (mBlueAdapter != null) {
                 if (mBlueAdapter.isEnabled) {
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH_CONNECT
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return@OnClickListener
+                    }
                     pairedTv.text = "Paired Devices"
                     val devices = mBlueAdapter.bondedDevices
                     for (device in devices) {
@@ -126,9 +168,6 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MutableList<PostModel>>,
                 response: Response<MutableList<PostModel>>
             ) {
-                if (response.isSuccessful)
-                    Log.e("Success", response.body().toString())
-
                 RecyclerView.apply {
                     layoutManager = LinearLayoutManager(this@MainActivity)
                     adapter = ViewHolder(response.body()!!)
