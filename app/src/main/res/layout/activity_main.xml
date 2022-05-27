@@ -98,10 +98,10 @@
                         android:id="@+id/pairedTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.0"
                         android:minWidth="200dp"
                         android:text=""
                         android:textColor="#000" />
+
 
                 </ScrollView>
 
@@ -109,10 +109,15 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+<!--        <ListView-->
+<!--            android:id="@+id/discoveredTv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"/>-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="423dp" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

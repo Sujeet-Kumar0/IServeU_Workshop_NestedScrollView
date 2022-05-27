@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val mDeviceList = ArrayList<String>()
 
         val serviceGenerator = ServiceGenerator.buildService(APIservice::class.java)
         val call = serviceGenerator.getPosts()
@@ -58,22 +59,22 @@ class MainActivity : AppCompatActivity() {
                     //intent to on bluetooth
                     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
 
-                        if (ActivityCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.BLUETOOTH_CONNECT
-                            ) != PackageManager.PERMISSION_GRANTED
-                        ) {
-                            // TODO: Consider calling
-                            //    ActivityCompat#requestPermissions
-                            // here to request the missing permissions, and then overriding
-                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                            //                                          int[] grantResults)
-                            // to handle the case where the user grants the permission. See the documentation
-                            // for ActivityCompat#requestPermissions for more details.
-                            checkAndRequestPermissions()
-                            return@OnClickListener
-                        }
-                        startActivityForResult(intent, REQUEST_ENABLE_BT)
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH_CONNECT
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        checkAndRequestPermissions()
+                        return@OnClickListener
+                    }
+                    startActivityForResult(intent, REQUEST_ENABLE_BT)
 
                 } else {
                     showToast("Bluetooth is already on")
@@ -87,8 +88,54 @@ class MainActivity : AppCompatActivity() {
                     if (!mBlueAdapter.isDiscovering) {
                         showToast("Making Your Device Discoverable")
 
+
                         val intent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE)
                         startActivityForResult(intent, REQUEST_DISCOVER_BT)
+
+//                        mBlueAdapter.startDiscovery()
+//
+//                        val mReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+//                            override fun onReceive(context: Context, intent: Intent) {
+//                                val action = intent.action
+//                                if (BluetoothDevice.ACTION_FOUND == action) {
+//                                    val device = intent
+//                                        .getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+//                                    if (ActivityCompat.checkSelfPermission(
+//                                            this@MainActivity,
+//                                            Manifest.permission.BLUETOOTH_CONNECT
+//                                        ) != PackageManager.PERMISSION_GRANTED
+//                                    ) {
+//                                        // TODO: Consider calling
+//                                        //    ActivityCompat#requestPermissions
+//                                        // here to request the missing permissions, and then overriding
+//                                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                        //                                          int[] grantResults)
+//                                        // to handle the case where the user grants the permission. See the documentation
+//                                        // for ActivityCompat#requestPermissions for more details.
+//                                        checkAndRequestPermissions()
+//                                        return
+//                                    }
+//                                    mDeviceList.add(
+//                                        """
+//                                        ${device!!.name}
+//                                        ${device.address}
+//                                        """.trimIndent()
+//                                    )
+//                                    Log.i(
+//                                        "BT", """
+//                                         ${device.name}
+//                                         ${device.address}
+//                                         """.trimIndent()
+//                                    )
+//                                    discoveredTv!!.adapter = ArrayAdapter(
+//                                        context,
+//                                        android.R.layout.simple_list_item_1, mDeviceList
+//                                    )
+//                                }
+//                            }
+//                        }
+//                        val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+//                        registerReceiver(mReceiver, filter)
                     }
             }
         })
@@ -216,4 +263,5 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+
 }
